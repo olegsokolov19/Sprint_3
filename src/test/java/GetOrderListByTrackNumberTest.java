@@ -1,6 +1,7 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.practicum.scooter.api.model.CourierModel;
@@ -20,12 +21,15 @@ public class GetOrderListByTrackNumberTest {
     Courier courier = CreateRandomCourier.getRandomCourier();
     CourierModel courierModel;
 
+    RequestSpecification requestSpec = new Specification().setRequestSpecification();
+
     int courierId;
     int orderId;
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.requestSpecification = requestSpec;
+
         courierModel = new CourierModel(courier.getLogin(), courier.getPassword(), courier.getFirstName());
 
         orderModel = new OrderModel(courier.getFirstName(), order.getLastName(), order.getAddress(), order.getMetroStation(),

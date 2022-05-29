@@ -1,6 +1,7 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.practicum.scooter.api.model.OrderModel;
@@ -13,9 +14,11 @@ public class CreateOrderTest {
     Order order = CreateRandomOrder.getRandomOrder();
     OrderModel orderModel;
 
+    RequestSpecification requestSpec = new Specification().setRequestSpecification();
+
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.requestSpecification = requestSpec;
         orderModel = new OrderModel(order.getFirstName(), order.getLastName(), order.getAddress(), order.getMetroStation(),
                 order.getPhone(), order.getRentTime(), order.getDeliveryDate(), order.getComment());
     }

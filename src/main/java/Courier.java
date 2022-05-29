@@ -1,12 +1,10 @@
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.apache.commons.lang3.RandomStringUtils;
 import ru.yandex.practicum.scooter.api.model.CourierModel;
 
 import static io.restassured.RestAssured.given;
 
 public class Courier {
-
     private final String courierEndpoint = "/api/v1/courier/";
 
     private String login;

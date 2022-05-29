@@ -2,6 +2,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -16,12 +17,14 @@ public class LoginCourierTest {
 
     Courier courier = CreateRandomCourier.getRandomCourier();
 
+    RequestSpecification requestSpec = new Specification().setRequestSpecification();
+
     int statusCode;
     int courierId;
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.requestSpecification = requestSpec;
 
         Response response = courier.createCourier(new CourierModel(courier.getLogin(), courier.getPassword(), courier.getFirstName()))
                 .then().extract().response();
