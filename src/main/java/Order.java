@@ -1,9 +1,8 @@
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.apache.commons.lang3.RandomStringUtils;
 import ru.yandex.practicum.scooter.api.model.OrderModel;
 
-import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -45,6 +44,7 @@ public class Order {
 
     }
 
+    @Step("Создание ордера")
     public Response createOrder(OrderModel orderModel) {
         return given()
                 .contentType(ContentType.JSON)
@@ -56,12 +56,14 @@ public class Order {
                 .response();
     }
 
+    @Step("Получение списка заказов")
     public Response getOrderList() {
         return given()
                 .contentType(ContentType.JSON)
                 .get(ordersEndpoint);
     }
 
+    @Step("Получение списка заказов по номеру заказа")
     public Response getOrderListByTrackNumber(Number track) {
         return given()
                 .contentType(ContentType.JSON)
@@ -72,6 +74,7 @@ public class Order {
                 .response();
     }
 
+    @Step("Принятие заказа")
     public Response acceptOrder(Number orderId, Number courierId) {
         return given().contentType(ContentType.JSON)
                 .queryParam("id", orderId)

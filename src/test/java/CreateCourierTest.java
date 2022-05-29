@@ -1,4 +1,5 @@
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
@@ -14,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class CreateCourierTest {
     Courier courier = CreateRandomCourier.getRandomCourier();
     RequestSpecification requestSpec = new Specification().setRequestSpecification();
-    
+
     @Before
     public void setUp() {
         RestAssured.requestSpecification = requestSpec;
