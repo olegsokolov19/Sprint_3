@@ -1,7 +1,5 @@
 package ru.yandex.practicum.scooter.api.model;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 public class CourierModel {
 
     private String login;
