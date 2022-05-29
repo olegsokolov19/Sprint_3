@@ -7,6 +7,8 @@ import static io.restassured.RestAssured.given;
 
 public class Courier {
 
+    private final String courierEndpoint = "/api/v1/courier/";
+
     private String login;
     private String password;
     private String firstName;
@@ -33,7 +35,7 @@ public class Courier {
                 .contentType(ContentType.JSON)
                 .body(courierModel)
                 .when()
-                .post("/api/v1/courier")
+                .post(courierEndpoint)
                 .then()
                 .extract()
                 .response();
@@ -44,7 +46,7 @@ public class Courier {
                 .contentType(ContentType.JSON)
                 .body(courierModel)
                 .when()
-                .post("/api/v1/courier/login")
+                .post(courierEndpoint + "login")
                 .then()
                 .extract()
                 .response();
@@ -53,7 +55,7 @@ public class Courier {
     public Response deleteCourier(int courierId) {
         return given()
                 .contentType(ContentType.JSON)
-                .delete("/api/v1/courier/" + courierId)
+                .delete(courierEndpoint + courierId)
                 .then()
                 .extract()
                 .response();

@@ -9,6 +9,8 @@ import static io.restassured.RestAssured.given;
 
 public class Order {
 
+    private final String ordersEndpoint = "/api/v1/orders/";
+
     String firstName;
     String lastName;
     String address;
@@ -64,7 +66,7 @@ public class Order {
                 .contentType(ContentType.JSON)
                 .body(orderModel)
                 .when()
-                .post("/api/v1/orders")
+                .post(ordersEndpoint)
                 .then()
                 .extract()
                 .response();
@@ -73,14 +75,14 @@ public class Order {
     public Response getOrderList() {
         return given()
                 .contentType(ContentType.JSON)
-                .get("/api/v1/orders");
+                .get(ordersEndpoint);
     }
 
     public Response getOrderListByTrackNumber(Number track) {
         return given()
                 .contentType(ContentType.JSON)
                 .queryParam("t", track)
-                .get("/api/v1/orders/track")
+                .get(ordersEndpoint + "track/")
                 .then()
                 .extract()
                 .response();
@@ -91,7 +93,7 @@ public class Order {
                 .queryParam("id", orderId)
                 .queryParam("courierId", courierId)
                 .when()
-                .put("/api/v1/orders/accept/")
+                .put(ordersEndpoint + "accept/")
                 .then()
                 .extract()
                 .response();
