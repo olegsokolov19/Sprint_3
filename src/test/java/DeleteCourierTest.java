@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class DeleteCourierTest {
 
-    Courier courier = Courier.getRandomCourier();
+    Courier courier = CreateRandomCourier.getRandomCourier();
     CourierModel courierModel;
 
     int courierId;

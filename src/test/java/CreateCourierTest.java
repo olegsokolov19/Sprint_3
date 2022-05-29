@@ -11,7 +11,7 @@ import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CreateCourierTest {
-    Courier courier = Courier.getRandomCourier();
+    Courier courier = CreateRandomCourier.getRandomCourier();
 
     @Before
     public void setUp() {

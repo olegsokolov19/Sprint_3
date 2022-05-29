@@ -22,14 +22,6 @@ public class Courier {
         this.firstName = firstName;
     }
 
-    public static Courier getRandomCourier() {
-        String login = RandomStringUtils.randomAlphabetic(12);
-        String password = RandomStringUtils.randomAlphabetic(12);
-        String firstName = RandomStringUtils.randomAlphabetic(6);
-
-        return new Courier(login, password, firstName);
-    }
-
     public Response createCourier(CourierModel courierModel) {
         return given()
                 .contentType(ContentType.JSON)

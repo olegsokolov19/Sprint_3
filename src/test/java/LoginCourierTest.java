@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.*;
 
 public class LoginCourierTest {
 
-    Courier courier = Courier.getRandomCourier();
+    Courier courier = CreateRandomCourier.getRandomCourier();
 
     int statusCode;
     int courierId;

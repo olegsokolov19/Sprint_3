@@ -13,10 +13,10 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class AcceptOrderTest {
 
-    Order order = Order.getRandomOrder();
+    Order order = CreateRandomOrder.getRandomOrder();
     OrderModel orderModel;
 
-    Courier courier = Courier.getRandomCourier();
+    Courier courier = CreateRandomCourier.getRandomCourier();
     CourierModel courierModel;
 
     int courierId;

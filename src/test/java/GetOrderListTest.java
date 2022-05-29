@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class GetOrderListTest {
 
-    Order order = Order.getRandomOrder();
+    Order order = CreateRandomOrder.getRandomOrder();
     OrderModel orderModel;
 
     @Before

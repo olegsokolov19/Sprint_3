@@ -14,10 +14,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class GetOrderListByTrackNumberTest {
 
-    Order order = Order.getRandomOrder();
+    Order order = CreateRandomOrder.getRandomOrder();
     OrderModel orderModel;
 
-    Courier courier = Courier.getRandomCourier();
+    Courier courier = CreateRandomCourier.getRandomCourier();
     CourierModel courierModel;
 
     int courierId;
