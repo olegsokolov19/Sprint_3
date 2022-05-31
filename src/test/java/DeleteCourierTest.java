@@ -1,8 +1,5 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.practicum.scooter.api.model.CourierModel;
@@ -18,14 +15,10 @@ public class DeleteCourierTest {
     Courier courier = CreateRandomCourier.getRandomCourier();
     CourierModel courierModel;
 
-    RequestSpecification requestSpec = new Specification().setRequestSpecification();
-
     int courierId;
 
     @Before
     public void setUp() {
-        RestAssured.requestSpecification = requestSpec;
-
         courierModel = new CourierModel(courier.getLogin(), courier.getPassword(), courier.getFirstName());
 
         courier.createCourier(courierModel)
@@ -52,8 +45,10 @@ public class DeleteCourierTest {
     public void requestWithoutIdReturnError() {
         String expectedError = "Недостаточно данных для удаления курьера";
 
-        given().contentType(ContentType.JSON)
-                .when().delete("/api/v1/courier/")
+        given()
+                .spec(new Specification().setRequestSpecification())
+                .when()
+                .delete("/api/v1/courier/")
                 .then()
                 .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo(expectedError));

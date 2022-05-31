@@ -1,8 +1,6 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -17,15 +15,11 @@ public class LoginCourierTest {
 
     Courier courier = CreateRandomCourier.getRandomCourier();
 
-    RequestSpecification requestSpec = new Specification().setRequestSpecification();
-
     int statusCode;
     int courierId;
 
     @Before
     public void setUp() {
-        RestAssured.requestSpecification = requestSpec;
-
         Response response = courier.createCourier(new CourierModel(courier.getLogin(), courier.getPassword(), courier.getFirstName()))
                 .then().extract().response();
 
@@ -39,6 +33,7 @@ public class LoginCourierTest {
     public void deleteCourier() {
         if(statusCode == SC_OK) {
             given()
+                    .spec(new Specification().setRequestSpecification())
                     .delete("/api/v1/courier/" + courierId)
                     .then().statusCode(SC_OK);
         }
@@ -97,6 +92,7 @@ public class LoginCourierTest {
     @Description("Проверяем, что на запрос без поля \"Логин\" возвращается 400 статус-код и ошибка")
     public void logInCourierWithoutLogin() {
         String expectedError = "Недостаточно данных для входа";
+
         CourierModel courierModel = new CourierModel();
         courierModel.setPassword(courier.getPassword());
 
@@ -109,6 +105,7 @@ public class LoginCourierTest {
     @Description("Проверяем, что на запрос без поля \"Пароль\" возвращается 400 статус-код и ошибка \"Недостаточно данных для входа\"")
     public void logInCourierWithoutPassword() {
         String expectedError = "Недостаточно данных для входа";
+
         CourierModel courierModel = new CourierModel();
         courierModel.setLogin(courier.getLogin());
 

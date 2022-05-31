@@ -1,10 +1,7 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.practicum.scooter.api.model.CourierModel;
 
@@ -13,12 +10,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class CreateCourierTest {
     Courier courier = CreateRandomCourier.getRandomCourier();
-    RequestSpecification requestSpec = new Specification().setRequestSpecification();
-
-    @Before
-    public void setUp() {
-        RestAssured.requestSpecification = requestSpec;
-    }
 
     @After
     public void deleteCourier() {

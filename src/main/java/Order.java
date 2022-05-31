@@ -1,11 +1,10 @@
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import ru.yandex.practicum.scooter.api.model.OrderModel;
 
 import static io.restassured.RestAssured.given;
 
-public class Order {
+public class Order extends Specification {
 
     private final String ordersEndpoint = "/api/v1/orders/";
 
@@ -46,7 +45,7 @@ public class Order {
     @Step("Создание ордера")
     public Response createOrder(OrderModel orderModel) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(setRequestSpecification())
                 .body(orderModel)
                 .when()
                 .post(ordersEndpoint)
@@ -58,14 +57,14 @@ public class Order {
     @Step("Получение списка заказов")
     public Response getOrderList() {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(setRequestSpecification())
                 .get(ordersEndpoint);
     }
 
     @Step("Получение списка заказов по номеру заказа")
     public Response getOrderListByTrackNumber(Number track) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(setRequestSpecification())
                 .queryParam("t", track)
                 .get(ordersEndpoint + "track/")
                 .then()
@@ -75,7 +74,8 @@ public class Order {
 
     @Step("Принятие заказа")
     public Response acceptOrder(Number orderId, Number courierId) {
-        return given().contentType(ContentType.JSON)
+        return given()
+                .spec(setRequestSpecification())
                 .queryParam("id", orderId)
                 .queryParam("courierId", courierId)
                 .when()

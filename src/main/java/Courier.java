@@ -1,11 +1,10 @@
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import ru.yandex.practicum.scooter.api.model.CourierModel;
 
 import static io.restassured.RestAssured.given;
 
-public class Courier {
+public class Courier extends Specification {
     private final String courierEndpoint = "/api/v1/courier/";
 
     private String login;
@@ -24,7 +23,7 @@ public class Courier {
     @Step("Создание курьера")
     public Response createCourier(CourierModel courierModel) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(setRequestSpecification())
                 .body(courierModel)
                 .when()
                 .post(courierEndpoint)
@@ -36,7 +35,7 @@ public class Courier {
     @Step("Получение информации о курьере (логин)")
     public Response logInCourier(CourierModel courierModel) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(setRequestSpecification())
                 .body(courierModel)
                 .when()
                 .post(courierEndpoint + "login")
@@ -48,7 +47,7 @@ public class Courier {
     @Step("Удаление курьера")
     public Response deleteCourier(int courierId) {
         return given()
-                .contentType(ContentType.JSON)
+                .spec(setRequestSpecification())
                 .delete(courierEndpoint + courierId)
                 .then()
                 .extract()
